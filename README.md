@@ -35,7 +35,7 @@ Enter the folder path when prompted.
 
 ##  Sample Output
 
-(See screenshot below)
+![Graph](graph.png)
 
 ## Use Case
 
