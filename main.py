@@ -82,14 +82,14 @@ for file, degree in sorted_files:
 
 
 # =========================
-# STATIC GRAPH EXPORT (MATCHED LAYOUT)
+# STATIC GRAPH EXPORT (CLEAN CIRCULAR)
 # =========================
 plt.figure(figsize=(12, 8))
 
 node_sizes = [800 + (out_degrees.get(node, 0) ** 1.8) * 900 for node in G.nodes()]
 
-# Circular layout to match interactive graph feel
-pos = nx.circular_layout(G)
+# Bigger circular layout so labels fit
+pos = nx.circular_layout(G, scale=2.5)
 
 nx.draw(
     G,
@@ -99,7 +99,7 @@ nx.draw(
     node_color="#4F46E5",
     edge_color="#9CA3AF",
     font_color="white",
-    font_size=10,
+    font_size=8,
     width=1.2,
     arrows=True,
     arrowsize=12
