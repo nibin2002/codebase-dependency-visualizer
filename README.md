@@ -14,6 +14,16 @@ This tool scans a Python codebase, extracts import relationships, and generates 
 
 ## Features
 
+### Architecture Overview
+
+The tool follows a simple pipeline:
+
+1. **File Discovery** — Recursively locates Python source files
+2. **Import Extraction** — Parses dependency statements using regex
+3. **Graph Construction** — Builds a directed dependency graph
+4. **Metric Computation** — Calculates in-degree and out-degree
+5. **Visualization** — Generates interactive and static graphs
+
 ### Codebase Analysis
 
 * Recursively scans all Python files in a directory
@@ -63,6 +73,8 @@ pip3 install pyvis networkx matplotlib
 
 ## Usage
 
+### Basic Run
+
 ```bash
 python3 main.py
 ```
@@ -72,6 +84,15 @@ When prompted, enter the folder path of the Python project you want to analyze:
 ```
 Enter folder path: /path/to/your/project
 ```
+
+### Example
+
+```bash
+python3 main.py
+Enter folder path: ./my_project
+```
+
+The tool will analyze the codebase and generate both visual and analytical outputs automatically.
 
 ---
 
@@ -112,7 +133,22 @@ High‑resolution dependency graph with proportional node sizing.
 
 ## Sample Output
 
+### Static Dependency Graph
+
+High-resolution export generated using NetworkX and Matplotlib.
+
 ![Dependency Graph](dependency_graph.png)
+
+### Interactive Dependency Graph
+
+Browser-based interactive visualization generated using PyVis.
+
+* Zoom and pan navigation
+* Draggable nodes
+* Physics-based layout
+* Clear directional relationships
+
+File: `dependency_graph.html`
 
 ---
 
