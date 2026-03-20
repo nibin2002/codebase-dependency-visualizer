@@ -82,12 +82,14 @@ for file, degree in sorted_files:
 
 
 # =========================
-# STATIC GRAPH EXPORT
+# STATIC GRAPH EXPORT (MATCHED LAYOUT)
 # =========================
 plt.figure(figsize=(12, 8))
 
 node_sizes = [800 + (out_degrees.get(node, 0) ** 1.8) * 900 for node in G.nodes()]
-pos = nx.spring_layout(G, k=0.8)
+
+# Circular layout to match interactive graph feel
+pos = nx.circular_layout(G)
 
 nx.draw(
     G,
@@ -119,11 +121,11 @@ print("\nSaved static graph as dependency_graph.png")
 
 
 # =========================
-# INTERACTIVE GRAPH (BIGGER CIRCLE)
+# INTERACTIVE GRAPH (BIGGER & CLEANER)
 # =========================
 net = Network(height="900px", width="100%", bgcolor="#0d1117", font_color="white")
 
-# Better layout
+# Better layout engine
 net.force_atlas_2based()
 
 # Nodes
