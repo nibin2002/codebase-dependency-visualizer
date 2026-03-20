@@ -83,12 +83,12 @@ for file, degree in sorted_files:
 
 
 # =========================
-# STATIC GRAPH IMAGE EXPORT
+# STATIC GRAPH IMAGE EXPORT (PREMIUM STYLING)
 # =========================
 plt.figure(figsize=(12, 8))
 
-# Node size proportional to out-degree
-node_sizes = [300 + out_degrees.get(node, 0) * 300 for node in G.nodes()]
+# Dramatic node size scaling based on out-degree
+node_sizes = [800 + (out_degrees.get(node, 0) ** 1.8) * 900 for node in G.nodes()]
 
 pos = nx.spring_layout(G, k=0.8)
 
@@ -97,22 +97,32 @@ nx.draw(
     pos,
     with_labels=True,
     node_size=node_sizes,
-    node_color="#1f77b4",
-    edge_color="#aaaaaa",
-    font_color="white"
+    node_color="#4F46E5",      # modern indigo
+    edge_color="#9CA3AF",      # soft gray edges
+    font_color="white",
+    font_size=10,
+    width=1.2,
+    arrows=True,
+    arrowsize=12
 )
 
-plt.gca().set_facecolor('#0d1117')
-plt.title("Code Dependency Graph")
-plt.tight_layout()
-plt.savefig("dependency_graph.png", dpi=300, facecolor='#0d1117')
+ax = plt.gca()
+ax.set_facecolor('#0f172a')   # premium dark slate background
+plt.title("Code Dependency Graph", color="white", fontsize=16, pad=20)
+
+plt.savefig(
+    "dependency_graph.png",
+    dpi=300,
+    facecolor='#0f172a',
+    bbox_inches='tight'
+)
 plt.close()
 
 print("\nSaved static graph as dependency_graph.png")
 
 
 # =========================
-# INTERACTIVE GRAPH
+# INTERACTIVE GRAPH (UNCHANGED FUNCTIONALITY)
 # =========================
 net = Network(height="750px", width="100%", bgcolor="#0d1117", font_color="white")
 
@@ -136,7 +146,7 @@ net.barnes_hut(
     damping=0.09
 )
 
-# Save and open in browser
+# Save interactive graph
 net.write_html("dependency_graph.html")
 
 print("Saved interactive graph as dependency_graph.html")
