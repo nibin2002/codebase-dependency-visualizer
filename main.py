@@ -37,7 +37,6 @@ def extract_imports(file_path):
 folder_path = input("Enter folder path: ")
 
 files = get_python_files(folder_path)
-
 dependency_map = {}
 
 for file in files:
@@ -59,7 +58,7 @@ for file, deps in dependency_map.items():
         G.add_node(dep)
         G.add_edge(file, dep)
 
-# Calculate degrees
+# Degrees
 in_degrees = dict(G.in_degree())
 out_degrees = dict(G.out_degree())
 
@@ -83,13 +82,11 @@ for file, degree in sorted_files:
 
 
 # =========================
-# STATIC GRAPH IMAGE EXPORT (PREMIUM STYLING)
+# STATIC GRAPH EXPORT
 # =========================
 plt.figure(figsize=(12, 8))
 
-# Dramatic node size scaling based on out-degree
 node_sizes = [800 + (out_degrees.get(node, 0) ** 1.8) * 900 for node in G.nodes()]
-
 pos = nx.spring_layout(G, k=0.8)
 
 nx.draw(
@@ -97,8 +94,8 @@ nx.draw(
     pos,
     with_labels=True,
     node_size=node_sizes,
-    node_color="#4F46E5",      # modern indigo
-    edge_color="#9CA3AF",      # soft gray edges
+    node_color="#4F46E5",
+    edge_color="#9CA3AF",
     font_color="white",
     font_size=10,
     width=1.2,
@@ -107,7 +104,7 @@ nx.draw(
 )
 
 ax = plt.gca()
-ax.set_facecolor('#0f172a')   # premium dark slate background
+ax.set_facecolor('#0f172a')
 plt.title("Code Dependency Graph", color="white", fontsize=16, pad=20)
 
 plt.savefig(
@@ -122,32 +119,32 @@ print("\nSaved static graph as dependency_graph.png")
 
 
 # =========================
-# INTERACTIVE GRAPH (UNCHANGED FUNCTIONALITY)
+# INTERACTIVE GRAPH (BIGGER CIRCLE)
 # =========================
-net = Network(height="750px", width="100%", bgcolor="#0d1117", font_color="white")
+net = Network(height="900px", width="100%", bgcolor="#0d1117", font_color="white")
 
-# Add nodes
+# Better layout
+net.force_atlas_2based()
+
+# Nodes
 for file in dependency_map:
     net.add_node(file, label=file, color="#1f77b4", size=25)
 
-# Add external nodes + edges
+# Edges
 for file, deps in dependency_map.items():
     for dep in deps:
         if dep not in dependency_map:
             net.add_node(dep, label=dep, color="#2ecc71", size=20)
         net.add_edge(file, dep)
 
-# Physics settings (smooth movement)
+# Spacious circular physics
 net.barnes_hut(
-    gravity=-3000,
-    central_gravity=0.3,
-    spring_length=150,
-    spring_strength=0.05,
-    damping=0.09
+    gravity=-8000,
+    central_gravity=0.6,
+    spring_length=300,
+    spring_strength=0.03,
+    damping=0.12
 )
 
-# Save interactive graph
 net.write_html("dependency_graph.html")
-
 print("Saved interactive graph as dependency_graph.html")
-
