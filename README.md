@@ -1,65 +1,93 @@
 # Codebase Dependency Visualizer
 
-A professional Python tool that analyzes a codebase and visualizes module dependencies using both interactive and high‑resolution static graphs.
+A professional Python tool for analyzing software module dependencies and visualizing codebase structure through interactive and high‑resolution static graphs.
 
-Designed to help developers understand project structure, identify tightly coupled modules, and analyze dependency flow efficiently.
-
----
-
-## Overview
-
-This tool scans a Python codebase, extracts import relationships, and generates visual and analytical outputs that make dependency structures easy to understand.
+This project is designed to help developers, reviewers, and researchers quickly understand architectural relationships, identify tightly coupled modules, and assess dependency flow with clarity and precision.
 
 ---
 
-## Features
+## Executive Summary
 
-### Architecture Overview
+Large codebases often become difficult to reason about due to hidden dependency chains. This tool automates dependency discovery and presents results through structured metrics and clear visualizations suitable for:
 
-The tool follows a simple pipeline:
+* Engineering reviews
+* Architecture documentation
+* Refactoring analysis
+* Academic submissions
+* Technical portfolios
 
-1. **File Discovery** — Recursively locates Python source files
-2. **Import Extraction** — Parses dependency statements using regex
-3. **Graph Construction** — Builds a directed dependency graph
-4. **Metric Computation** — Calculates in-degree and out-degree
-5. **Visualization** — Generates interactive and static graphs
+---
+
+## System Architecture
+
+### Processing Pipeline
+
+1. **File Discovery**
+   Recursively scans the target directory to locate Python source files.
+
+2. **Import Extraction**
+   Parses dependency statements using pattern matching:
+
+   * `import module`
+   * `from module import object`
+
+3. **Dependency Mapping**
+   Builds a module‑to‑module relationship map.
+
+4. **Graph Construction**
+   Creates a directed graph representing dependency flow.
+
+5. **Metric Computation**
+   Calculates structural graph metrics:
+
+   * **Out‑degree** — Number of modules a file imports
+   * **In‑degree** — Number of modules that import a file
+
+6. **Visualization Layer**
+
+   * Interactive browser‑based graph for exploration
+   * High‑resolution static graph for reports and documentation
+
+---
+
+## Feature Set
 
 ### Codebase Analysis
 
-* Recursively scans all Python files in a directory
-* Parses `import` and `from ... import ...` statements
-* Builds a dependency map between modules automatically
+* Recursive Python file scanning
+* Automatic dependency extraction
+* Accurate module relationship mapping
 
-### Dependency Metrics
+### Structural Metrics
 
-* **Out-degree** — Number of modules a file imports
-* **In-degree** — Number of modules that import a file
-* Clear terminal summaries for quick inspection
+* In‑degree and Out‑degree computation
+* Clear terminal summaries
 * Automatic ranking by most dependent modules
 
 ### Interactive Visualization
 
-* Dynamic dependency network rendered in browser
-* Drag, zoom, and explore module relationships
-* Physics-based layout for clean structure
-* Suitable for live exploration and demos
+* Browser‑rendered dependency network
+* Zoom, pan, and drag navigation
+* Physics‑based layout engine
+* Clear directional relationships
+* Ideal for live demos and exploration
 
 ### Static Graph Export
 
-* High‑resolution PNG export
+* High‑resolution PNG output
 * Professional dark theme
 * Node sizes proportional to dependency count
-* Directional edges with arrows
-* Suitable for reports and documentation
+* Directed edges with arrows
+* Suitable for publications and documentation
 
 ---
 
 ## Technology Stack
 
-* Python — Core language
-* PyVis — Interactive network visualization
-* NetworkX — Graph construction and metrics
-* Matplotlib — Static graph rendering
+* **Python** — Core implementation
+* **PyVis** — Interactive network visualization
+* **NetworkX** — Graph construction and structural analysis
+* **Matplotlib** — Static graph rendering
 
 ---
 
@@ -73,13 +101,13 @@ pip3 install pyvis networkx matplotlib
 
 ## Usage
 
-### Basic Run
+### Run the Analyzer
 
 ```bash
 python3 main.py
 ```
 
-When prompted, enter the folder path of the Python project you want to analyze:
+When prompted, enter the folder path of the Python project:
 
 ```
 Enter folder path: /path/to/your/project
@@ -92,85 +120,98 @@ python3 main.py
 Enter folder path: ./my_project
 ```
 
-The tool will analyze the codebase and generate both visual and analytical outputs automatically.
+The tool automatically analyzes the codebase and generates all outputs.
 
 ---
 
 ## Outputs
 
-### Terminal
+### Terminal Report
+
+Provides a structured analytical summary:
 
 * Dependency map
-* In-degree and Out-degree summary
+* In‑degree and Out‑degree per module
 * Ranking by outgoing dependencies
 
 ### Interactive Graph
 
-```
-dependency_graph.html
-```
+`dependency_graph.html`
 
-Open in a browser to explore the network dynamically.
+Open in a browser to explore the dependency network dynamically.
 
 ### Static Graph Image
 
-```
-dependency_graph.png
-```
+`dependency_graph.png`
 
-High‑resolution dependency graph with proportional node sizing.
+High‑resolution dependency visualization with proportional node sizing and directional edges.
 
 ---
 
-## Example Insights
-
-* Identify highly dependent modules
-* Detect architectural bottlenecks
-* Spot reusable utility modules
-* Understand overall project structure quickly
-
----
-
-## Sample Output
+## Sample Visualization
 
 ### Static Dependency Graph
 
-High-resolution export generated using NetworkX and Matplotlib.
+Generated using NetworkX and Matplotlib.
 
 ![Dependency Graph](dependency_graph.png)
 
 ### Interactive Dependency Graph
 
-Browser-based interactive visualization generated using PyVis.
+Generated using PyVis.
+
+Capabilities:
 
 * Zoom and pan navigation
 * Draggable nodes
-* Physics-based layout
-* Clear directional relationships
-
-File: `dependency_graph.html`
+* Physics‑based layout
+* Clear dependency direction
 
 ---
 
-## Use Cases
+## Practical Applications
 
-* Codebase onboarding
-* Architecture reviews
-* Refactoring planning
-* Academic projects
-* Technical documentation
+* Codebase onboarding for new developers
+* Software architecture reviews
+* Refactoring strategy planning
+* Academic research and submissions
+* Technical documentation generation
+* Dependency risk assessment
 
 ---
 
-## Future Enhancements
+## Design Principles
+
+* **Clarity** — Visual outputs that are easy to interpret
+* **Accuracy** — Reliable dependency parsing
+* **Usability** — Minimal setup and simple execution
+* **Professional Presentation** — Suitable for engineering portfolios
+* **Extensibility** — Designed for future analytical enhancements
+
+---
+
+## Performance Notes
+
+* Efficient recursive scanning
+* Lightweight dependency extraction
+* Suitable for small to medium‑sized codebases
+* Graph layout optimized for readability
+
+---
+
+## Roadmap
+
+Planned enhancements:
 
 * Centrality analysis for critical module detection
 * Community detection for module clustering
-* Import type classification (standard library vs third‑party vs local)
-* Command-line argument support
+* Import classification (standard library vs third‑party vs local)
+* Command‑line argument support
 * Web dashboard interface
+* Large codebase performance optimization
 
 ---
+
 
 ## Author
 
