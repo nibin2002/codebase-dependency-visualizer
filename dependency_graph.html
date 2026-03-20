@@ -88,8 +88,8 @@
                   
 
                   // parsing and collecting nodes and edges from the python
-                  nodes = new vis.DataSet([{"color": "#1f77b4", "font": {"color": "white"}, "id": "main.py", "label": "main.py", "shape": "dot", "size": 25}, {"color": "#2ecc71", "font": {"color": "white"}, "id": "os", "label": "os", "shape": "dot", "size": 20}, {"color": "#2ecc71", "font": {"color": "white"}, "id": "re", "label": "re", "shape": "dot", "size": 20}, {"color": "#2ecc71", "font": {"color": "white"}, "id": "Network", "label": "Network", "shape": "dot", "size": 20}]);
-                  edges = new vis.DataSet([{"from": "main.py", "to": "os"}, {"from": "main.py", "to": "re"}, {"from": "main.py", "to": "Network"}]);
+                  nodes = new vis.DataSet([{"color": "#1f77b4", "font": {"color": "white"}, "id": "main.py", "label": "main.py", "shape": "dot", "size": 25}, {"color": "#2ecc71", "font": {"color": "white"}, "id": "os", "label": "os", "shape": "dot", "size": 20}, {"color": "#2ecc71", "font": {"color": "white"}, "id": "re", "label": "re", "shape": "dot", "size": 20}, {"color": "#2ecc71", "font": {"color": "white"}, "id": "Network", "label": "Network", "shape": "dot", "size": 20}, {"color": "#2ecc71", "font": {"color": "white"}, "id": "networkx", "label": "networkx", "shape": "dot", "size": 20}, {"color": "#2ecc71", "font": {"color": "white"}, "id": "matplotlib", "label": "matplotlib", "shape": "dot", "size": 20}]);
+                  edges = new vis.DataSet([{"from": "main.py", "to": "os"}, {"from": "main.py", "to": "re"}, {"from": "main.py", "to": "Network"}, {"from": "main.py", "to": "networkx"}, {"from": "main.py", "to": "matplotlib"}]);
 
                   nodeColors = {};
                   allNodes = nodes.get({ returnType: "Object" });

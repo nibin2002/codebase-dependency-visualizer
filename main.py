@@ -1,6 +1,8 @@
 import os
 import re
 from pyvis.network import Network
+import networkx as nx
+import matplotlib.pyplot as plt
 
 # =========================
 # GET PY FILES
@@ -45,17 +47,68 @@ for file in files:
 
 
 # =========================
+# BUILD NETWORKX GRAPH
+# =========================
+G = nx.DiGraph()
+
+for file in dependency_map:
+    G.add_node(file)
+
+for file, deps in dependency_map.items():
+    for dep in deps:
+        G.add_node(dep)
+        G.add_edge(file, dep)
+
+# Calculate degrees
+in_degrees = dict(G.in_degree())
+out_degrees = dict(G.out_degree())
+
+
+# =========================
 # PRINT OUTPUT
 # =========================
 print("\nDependency Map:")
 for file, deps in dependency_map.items():
     print(f"{file} → {deps}")
 
-print("\nRanking (Most Dependencies First):")
-sorted_files = sorted(dependency_map.items(), key=lambda x: len(x[1]), reverse=True)
+print("\nFile Degree Summary:")
+for node in G.nodes():
+    print(f"{node} → In-degree: {in_degrees.get(node,0)}, Out-degree: {out_degrees.get(node,0)}")
 
-for file, deps in sorted_files:
-    print(f"{file}: {len(deps)} dependencies")
+print("\nRanking (Most Outgoing Dependencies First):")
+sorted_files = sorted(out_degrees.items(), key=lambda x: x[1], reverse=True)
+
+for file, degree in sorted_files:
+    print(f"{file}: {degree} outgoing dependencies")
+
+
+# =========================
+# STATIC GRAPH IMAGE EXPORT
+# =========================
+plt.figure(figsize=(12, 8))
+
+# Node size proportional to out-degree
+node_sizes = [300 + out_degrees.get(node, 0) * 300 for node in G.nodes()]
+
+pos = nx.spring_layout(G, k=0.8)
+
+nx.draw(
+    G,
+    pos,
+    with_labels=True,
+    node_size=node_sizes,
+    node_color="#1f77b4",
+    edge_color="#aaaaaa",
+    font_color="white"
+)
+
+plt.gca().set_facecolor('#0d1117')
+plt.title("Code Dependency Graph")
+plt.tight_layout()
+plt.savefig("dependency_graph.png", dpi=300, facecolor='#0d1117')
+plt.close()
+
+print("\nSaved static graph as dependency_graph.png")
 
 
 # =========================
@@ -85,3 +138,6 @@ net.barnes_hut(
 
 # Save and open in browser
 net.write_html("dependency_graph.html")
+
+print("Saved interactive graph as dependency_graph.html")
+
